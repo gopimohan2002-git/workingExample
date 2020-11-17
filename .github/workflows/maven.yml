@@ -29,3 +29,15 @@ jobs:
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+    - uses: Azure/k8s-deploy@v1
+      with:
+        namespace: 'gitaction'
+        manifests: |
+            deployment.yaml
+            service.yaml
+        images: 'docker pull gopimohan2002/test:latest'
+        imagepullsecrets: |
+          image-pull-secret1
+          image-pull-secret2
+        kubectl-version: 'latest'
+
