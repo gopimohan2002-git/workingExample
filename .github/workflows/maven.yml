@@ -29,9 +29,13 @@ jobs:
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-    - name: start minikube 
-      id: minikube
-      uses: medyagh/setup-minikube@master
-    # now you can run kubectl to see the pods in the cluster
-    - name: kubectl 
-      run: kubectl get pods -A
+    # Connect to Azure Container registry (ACR)
+    - uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.REGISTRY_NAME }}.azurecr.io
+        username: ${{ secrets.REGISTRY_USERNAME }} 
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+    
+    # Container build and push to a Azure Container registry (ACR)
+    - run: |
+        docker push ${{ secrets.REGISTRY_NAME }}.azurecr.io/gopimohan2002/test:${{ github.sha }}
