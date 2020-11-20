@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "mytest-4d08"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "mytest-4d08"
+  template:
+    metadata:
+      labels:
+        app: "mytest-4d08"
+    spec:
+      containers:
+        - name: "mytest-4d08"
+          image: "senpoc1.azurecr.io/mytest"
+          ports:
+          - containerPort: 8080
