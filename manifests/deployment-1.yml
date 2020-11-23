@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "poc-c003"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "poc-c003"
+  template:
+    metadata:
+      labels:
+        app: "poc-c003"
+    spec:
+      containers:
+        - name: "poc-c003"
+          image: "senpoc1.azurecr.io/poc"
+          ports:
+          - containerPort: 8080
